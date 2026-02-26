@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Hva skal du gjøre i dag?</h1>
+
+    <script>
+      async function getRandomActivity() {
+        const apiResponse = await fetch(
+          "https://bored-api.appbrewery.com/random",
+        );
+        const randomActivity = await apiResponse.json();
+
+        return randomActivity;
+      }
+
+      async function showRandomActivity() {
+        const randomActivity = await getRandomActivity();
+        const randomActivityCard = document.createElement("div");
+
+        const randomActivityName = document.createElement("h1");
+        const randomActivityPrice = document.createElement("h2");
+
+        randomActivityName.innerText = `Navnet på din aktivitet: ${randomActivity.activity}`;
+        randomActivityPrice.innerText = `Aktiviteten koster: ${randomActivity.price}`;
+
+        randomActivityCard.append(randomActivityName, randomActivityPrice);
+        document.body.append(randomActivityCard);
+      }
+
+      showRandomActivity();
+    </script>
+  </body>
+</html>
